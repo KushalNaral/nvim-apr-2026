@@ -13,7 +13,6 @@ return {
       vim.keymap.set('i', '<A-]>', function() neocodeium.cycle_or_complete(1) end, { desc = 'NeoCodeium next' })
       vim.keymap.set('i', '<A-[>', function() neocodeium.cycle_or_complete(-1) end, { desc = 'NeoCodeium prev' })
       vim.keymap.set('i', '<A-c>', neocodeium.clear, { desc = 'NeoCodeium clear' })
-      vim.keymap.set('i', '<A-e>', neocodeium.toggle, { desc = 'NeoCodeium toggle' })
     end,
   },
 }

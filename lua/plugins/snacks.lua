@@ -10,7 +10,7 @@ return {
       statuscolumn = { enabled = true },
       indent = { enabled = true },
       words = { enabled = true },
-      -- Dashboard
+      --Dashboard
       dashboard = {
         enabled = true,
         sections = {
