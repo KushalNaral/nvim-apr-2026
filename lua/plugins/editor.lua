@@ -9,9 +9,7 @@ return {
       {
         'nvim-telescope/telescope-fzf-native.nvim',
         build = 'make',
-        cond = function()
-          return vim.fn.executable 'make' == 1
-        end,
+        cond = function() return vim.fn.executable 'make' == 1 end,
       },
       { 'nvim-telescope/telescope-ui-select.nvim' },
       { 'nvim-tree/nvim-web-devicons', enabled = vim.g.have_nerd_font },
@@ -42,20 +40,26 @@ return {
       map('n', '<leader>so', function() vim.cmd 'TodoLocList' end, { desc = '[S]earch Todo [O]pen list' })
       map('n', '<leader><leader>', builtin.buffers, { desc = '[ ] Find existing buffers' })
 
-      map('n', '<leader>/', function()
-        builtin.current_buffer_fuzzy_find(require('telescope.themes').get_dropdown {
-          winblend = 10,
-          previewer = false,
-        })
-      end, { desc = '[/] Fuzzily search in current buffer' })
+      map(
+        'n',
+        '<leader>/',
+        function()
+          builtin.current_buffer_fuzzy_find(require('telescope.themes').get_dropdown {
+            winblend = 10,
+            previewer = false,
+          })
+        end,
+        { desc = '[/] Fuzzily search in current buffer' }
+      )
 
-      map('n', '<leader>s/', function()
-        builtin.live_grep { grep_open_files = true, prompt_title = 'Live Grep in Open Files' }
-      end, { desc = '[S]earch [/] in Open Files' })
+      map(
+        'n',
+        '<leader>s/',
+        function() builtin.live_grep { grep_open_files = true, prompt_title = 'Live Grep in Open Files' } end,
+        { desc = '[S]earch [/] in Open Files' }
+      )
 
-      map('n', '<leader>sn', function()
-        builtin.find_files { cwd = vim.fn.stdpath 'config' }
-      end, { desc = '[S]earch [N]eovim files' })
+      map('n', '<leader>sn', function() builtin.find_files { cwd = vim.fn.stdpath 'config' } end, { desc = '[S]earch [N]eovim files' })
 
       -- LSP-specific telescope pickers (registered on LspAttach)
       vim.api.nvim_create_autocmd('LspAttach', {
@@ -79,7 +83,7 @@ return {
     dependencies = { 'nvim-tree/nvim-web-devicons' },
     opts = {
       default_file_explorer = true,
-      columns = { 'icon', 'size', 'mtime' },
+      columns = { 'icon', 'size' },
       buf_options = {
         buflisted = false,
         bufhidden = 'hide',
@@ -133,13 +137,19 @@ return {
         end
 
         map('n', ']c', function()
-          if vim.wo.diff then vim.cmd.normal { ']c', bang = true }
-          else gitsigns.nav_hunk 'next' end
+          if vim.wo.diff then
+            vim.cmd.normal { ']c', bang = true }
+          else
+            gitsigns.nav_hunk 'next'
+          end
         end, { desc = 'Jump to next git [c]hange' })
 
         map('n', '[c', function()
-          if vim.wo.diff then vim.cmd.normal { '[c', bang = true }
-          else gitsigns.nav_hunk 'prev' end
+          if vim.wo.diff then
+            vim.cmd.normal { '[c', bang = true }
+          else
+            gitsigns.nav_hunk 'prev'
+          end
         end, { desc = 'Jump to previous git [c]hange' })
 
         map('v', '<leader>hs', function() gitsigns.stage_hunk { vim.fn.line '.', vim.fn.line 'v' } end, { desc = 'git [s]tage hunk' })
@@ -184,7 +194,7 @@ return {
       delete_to_trash = false,
       skip_confirm_for_simple_edits = true,
       view_options = {
-        show_hidden = false,
+        show_hidden = true,
       },
     },
   },

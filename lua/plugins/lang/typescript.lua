@@ -3,7 +3,7 @@ return {
   {
     'pmizio/typescript-tools.nvim',
     dependencies = { 'nvim-lua/plenary.nvim', 'neovim/nvim-lspconfig' },
-    ft = { 'javascript', 'javascriptreact', 'typescript', 'typescriptreact', 'vue' },
+    event = { 'BufReadPre', 'BufNewFile' },
     opts = {
       on_attach = function(_, bufnr)
         local map = function(mode, lhs, rhs, desc)

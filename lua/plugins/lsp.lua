@@ -61,8 +61,8 @@ return {
       local servers = {
         gopls = {},
 
-        -- Volar (Vue, hybrid mode — works alongside typescript-tools)
-        volar = {
+        -- vue_ls (Vue, hybrid mode — works alongside typescript-tools)
+        vue_ls = {
           settings = {
             vue = {
               server = { hybridMode = true },
@@ -72,8 +72,10 @@ return {
         },
 
         intelephense = {
-          root_dir = function(fname)
-            return require('lspconfig.util').root_pattern('artisan', 'composer.json', '.git')(fname)
+          root_dir = function(bufnr, on_dir)
+            local fname = vim.api.nvim_buf_get_name(bufnr)
+            local root = vim.fs.root(fname, { 'artisan', 'composer.json', '.git' })
+            if root then on_dir(root) end
           end,
         },
 
@@ -124,7 +126,7 @@ return {
       -- Mason package names differ from lspconfig server names for some servers.
       local mason_names = {}
       for name in pairs(servers) do
-        if name == 'volar' then
+        if name == 'vue_ls' then
           table.insert(mason_names, 'vue-language-server')
         else
           table.insert(mason_names, name)
